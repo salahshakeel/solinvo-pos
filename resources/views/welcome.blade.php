@@ -49,42 +49,52 @@
     <body class="bg-gray-100">
    <div class="mx-auto p-4">
     <!-- Header -->
-<div class="bg-white rounded-lg shadow-md p-4 mb-6">
-    <div class="flex justify-between items-center">
-        <!-- Left Section -->
-        <h1 class="text-3xl font-bold text-gray-800 flex items-center space-x-2">
-            <img src="{{ asset('images/logo2.png') }}" alt="POS Icon" class="w-8 h-8"/>
-            <span>POS-Solinvo</span>
-        </h1>
+       <div class="bg-white rounded-lg shadow-md p-4 mb-6 sticky top-0 z-50">
+            <div class="flex justify-between items-center">
+                <!-- Left Section -->
+                <h1 class="text-3xl font-bold text-gray-800 flex items-center space-x-2">
+                    <img src="{{ asset('images/logo2.png') }}" alt="POS Icon" class="w-8 h-8"/>
+                    <span>POS-Solinvo</span>
+                </h1>
 
-        <!-- Center Section (CSV Upload) -->
-       
+                <!-- Center Section (CSV Upload) -->
+            
 
-        <!-- Right Section -->
-      <div class="flex space-x-4 items-center">
+                <!-- Right Section -->
+            <div class="flex space-x-4 items-center">
 
-    <!-- CSV Upload -->
-    <form action="{{ url('/api/upload-csv') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <label class="cursor-pointer bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
-            <i class="fas fa-file-csv text-white mr-2"></i>
-            <span>Upload CSV</span>
-            <input type="file" name="file" accept=".csv" required class="hidden" onchange="this.form.submit()">
-        </label>
-    </form>
+              <div class="relative">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search products... (F1)"
+                    class="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                />
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
 
-    <!-- Sales History -->
-    <button onclick="showSalesHistory()" 
-        class="bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
-        <i class="fas fa-history mr-2"></i> Sales History (F4)
-    </button>
+            <!-- CSV Upload -->
+            <form action="{{ url('/api/upload-csv') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <label class="cursor-pointer bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
+                    <i class="fas fa-file-csv text-white mr-2"></i>
+                    <span>Upload CSV</span>
+                    <input type="file" name="file" accept=".csv" required class="hidden" onchange="this.form.submit()">
+                </label>
+            </form>
 
-    <!-- DateTime -->
-    <div class="text-right">
-        <div class="text-sm text-gray-600">Current Datetime</div>
-        <div class="font-semibold" id="currentDate"></div>
-    </div>
-</div>
+            <!-- Sales History -->
+            <button onclick="showSalesHistory()" 
+                class="bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
+                <i class="fas fa-history mr-2"></i> Sales History (F4)
+            </button>
+
+            <!-- DateTime -->
+            <div class="text-right">
+                <div class="text-sm text-gray-600">Current Datetime</div>
+                <div class="font-semibold" id="currentDate"></div>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -95,44 +105,42 @@
         <!-- Products Section (takes full width except cart) -->
       <div class="flex-1">
     <div class="bg-white rounded-lg shadow-md p-4">
-        <!-- Products Header -->
-        <div class="flex justify-between items-center mb-4">
-            <div class="relative">
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Search products... (F1)"
-                    class="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                />
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-            </div>
-        </div>
+      
 
         <!-- Filters Section (Inside Products box) -->
-        <div class="mb-4">
-            <h1 class="text-lg font-semibold mb-2">Categories</h1>
-            <div class="flex flex-wrap gap-2 mt-2" id="categoryFilters">
-                <button onclick="filterByCategory('all')" 
-                        class="category-btn active bg-gray-900 text-white px-3 py-1 rounded-full text-sm">
-                    All Categories
-                </button>
-                <!-- Dynamic category buttons will be added here -->
-            </div>
-        </div>
+       <div class="mb-4">
+    <h1 class="text-lg font-semibold mb-2 flex justify-between items-center">
+        Categories
+        <button onclick="toggleSection('categoryFilters')" 
+                class="text-blue-600 text-sm underline">View</button>
+    </h1>
+    <div class="flex flex-wrap gap-2 mt-2 hidden" id="categoryFilters">
+        <button onclick="filterByCategory('all')" 
+                class="category-btn active bg-gray-900 text-white px-3 py-1 rounded-full text-sm">
+            All Categories
+        </button>
+        <!-- Dynamic category buttons here -->
+    </div>
+</div>
 
-        <div class="mb-4">
-            <h1 class="text-lg font-semibold mb-2">Brands</h1>
-            <div class="flex flex-wrap gap-2 mt-2" id="brandsFilters">       
-                <button onclick="filterByBrand('all')" 
-                        class="brand-btn active bg-gray-900 text-white px-3 py-1 rounded-full text-sm">
-                    All Brands
-                </button>
-                <!-- Dynamic brand buttons will be added here -->
-            </div>
-        </div>
+<div class="mb-4">
+    <h1 class="text-lg font-semibold mb-2 flex justify-between items-center">
+        Brands
+        <button onclick="toggleSection('brandsFilters')" 
+                class="text-blue-600 text-sm underline">View</button>
+    </h1>
+    <div class="flex flex-wrap gap-2 mt-2 hidden" id="brandsFilters">       
+        <button onclick="filterByBrand('all')" 
+                class="brand-btn active bg-gray-900 text-white px-3 py-1 rounded-full text-sm">
+            All Brands
+        </button>
+        <!-- Dynamic brand buttons here -->
+    </div>
+</div>
+
 
         <!-- Products Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 max-h-96 overflow-y-auto" id="productsGrid">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 overflow-y-auto" id="productsGrid">
             <!-- Products will be loaded here -->
         </div>
     </div>
@@ -140,7 +148,7 @@
 
 
         <!-- Cart Sidebar (fixed width on right) -->
-        <div class="w-96">
+      <div class="w-96 sticky top-20 self-start">
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-xl font-semibold mb-4">Shopping Cart</h2>
                 
@@ -438,6 +446,15 @@
             }
             displayProducts(filtered);
         }
+
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            section.classList.toggle("hidden");
+            // change the text
+            const button = section.previousElementSibling.querySelector("button");
+            button.textContent = section.classList.contains("hidden") ? "View" : "Hide";
+        }
+
 
         function displayProducts(productsToShow) {
             const grid = document.getElementById('productsGrid');

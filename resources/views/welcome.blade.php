@@ -149,7 +149,7 @@
 
         <!-- Cart Sidebar (fixed width on right) -->
       <div class="w-96 sticky top-20 self-start">
-            <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="bg-white rounded-lg shadow-md p-4 ">
                 <h2 class="text-xl font-semibold mb-4">Shopping Cart</h2>
                 
                 <!-- Customer Info -->
@@ -296,7 +296,7 @@
 
     <!-- Splash Screen -->
     <div id="splashScreen" class="fixed inset-0 bg-gray-100 flex flex-col items-center justify-center z-50">
-        <img src="{{ asset('images/logo.png') }}" alt="POS Icon" class=" mb-4 animate-bounce">
+        <img src="{{ asset('images/logo.png') }}" alt="POS Icon" class=" mb-4 ">
         <h1 class="text-black text-2xl font-bold">Please wait...</h1>
     </div>
 
@@ -568,7 +568,7 @@
                                     value="${item.price}" 
                                     min="0"
                                     class="border rounded px-1 w-20 text-sm"
-                                    onchange="updatePrice(${index}, this.value)"
+                                       oninput="updatePrice(${index}, this.value)"
                                 />
                             </div>
                         </div>
@@ -893,6 +893,10 @@
                 closeReceiptModal();
                 closeSalesModal();
             }
+            // else if (e.key === 'p') {
+            //     e.preventDefault();
+            //     printReceipt();
+            // }
         });
 
         // Auto-refresh products every 5 minutes

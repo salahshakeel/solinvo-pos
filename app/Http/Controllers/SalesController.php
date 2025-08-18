@@ -23,7 +23,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $sales = Sale::orderBy('created_at', 'desc')->paginate(50);
+      $sales  = $this->csvSalesService->getAllSales();
         return response()->json([
             'success' => true,
             'data' => $sales

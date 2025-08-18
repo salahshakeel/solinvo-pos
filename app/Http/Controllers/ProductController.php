@@ -36,11 +36,11 @@ class ProductController extends Controller
     {
         try {
             $query = $request->get('q', '');
-            $products = $this->csvService->searchProducts($query);
+            $products = $this->csvService->searchProducts($query) ?? [];
             
             return response()->json([
                 'success' => true,
-                'data' => $products
+                'data' =>  array_values($products)
             ]);
         } catch (\Exception $e) {
             return response()->json([

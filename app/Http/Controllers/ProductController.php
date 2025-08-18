@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\CsvProductService;
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
      private $csvService;
@@ -24,6 +25,25 @@ class ProductController extends Controller
                 'success' => true,
                 'data' => $products
             ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+     public function uploadCsv(Request $request)
+    {
+        try {
+            $request->validate([
+                'file' => 'required|mimes:csv,txt|max:2048'
+            ]);
+
+            $request->file('file')->move(storage_path('app'), 'products.csv');
+
+
+          return back();
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

@@ -49,30 +49,46 @@
     <body class="bg-gray-100">
    <div class="mx-auto p-4">
     <!-- Header -->
-    <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-        <div class="flex justify-between items-center">
-            <!-- Left Section -->
-            <h1 class="text-3xl font-bold text-gray-800">
-                <img src="{{ asset('images/logo2.png') }}" alt="POS Icon" class="inline-block w-8 h-8"/>
-                POS-Solinvo
-            </h1>
+<div class="bg-white rounded-lg shadow-md p-4 mb-6">
+    <div class="flex justify-between items-center">
+        <!-- Left Section -->
+        <h1 class="text-3xl font-bold text-gray-800 flex items-center space-x-2">
+            <img src="{{ asset('images/logo2.png') }}" alt="POS Icon" class="w-8 h-8"/>
+            <span>POS-Solinvo</span>
+        </h1>
 
-            <!-- Right Section -->
-            <div class="flex space-x-4">
-                <button onclick="showSalesHistory()" 
-                    class="bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
-                    <i class="fas fa-history mr-2"></i>Sales History (F4)
-                </button>
-                <div class="text-right">
-                    <div class="text-sm text-gray-600">Current Datetime</div>
-                    <div class="font-semibold" id="currentDate"></div>
-                </div>
-            </div>
-        </div>
-        
+        <!-- Center Section (CSV Upload) -->
+       
 
-      
+        <!-- Right Section -->
+      <div class="flex space-x-4 items-center">
+
+    <!-- CSV Upload -->
+    <form action="{{ url('/api/upload-csv') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <label class="cursor-pointer bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
+            <i class="fas fa-file-csv text-white mr-2"></i>
+            <span>Upload CSV</span>
+            <input type="file" name="file" accept=".csv" required class="hidden" onchange="this.form.submit()">
+        </label>
+    </form>
+
+    <!-- Sales History -->
+    <button onclick="showSalesHistory()" 
+        class="bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
+        <i class="fas fa-history mr-2"></i> Sales History (F4)
+    </button>
+
+    <!-- DateTime -->
+    <div class="text-right">
+        <div class="text-sm text-gray-600">Current Datetime</div>
+        <div class="font-semibold" id="currentDate"></div>
     </div>
+</div>
+
+    </div>
+</div>
+
 
     <!-- MAIN LAYOUT -->
     <div class="flex gap-6">

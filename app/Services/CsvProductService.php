@@ -21,36 +21,58 @@ class CsvProductService
         $this->initializeCsvFiles();
     }
 
-    public function loadProductsFromCsv()
-    {
-        if (!file_exists($this->csvPath)) {
-            throw new \Exception('CSV file not found');
-        }
-
-        $csv = Reader::createFromPath($this->csvPath, 'r');
-        $csv->setHeaderOffset(0);
-        
-        $products = [];
-        foreach ($csv as $record) {
-            $products[] = [
-                'name' => trim($record['Name'] ?? ''),
-                'model' => trim($record['Model'] ?? ''),
-                'specifications' => trim($record['Specifications'] ?? ''),
-                'purchase_price' => floatval($record['Purchase Price'] ?? 0),
-                'selling_price' => floatval($record['Selling Price'] ?? 0),
-                'warranty_period' => intval($record['Warranty Period'] ?? 0),
-                'warranty_type' => trim($record['Warranty Type'] ?? 'none'),
-                'quantity' => intval($record['quantity'] ?? 0),
-                'categories' => trim($record['Categories'] ?? ''),
-                'brands' => trim($record['Brands'] ?? ''),
-                'description' => trim(strip_tags($record['Description'] ?? '')),
-                'weight' => floatval($record['Weight'] ?? 0),
-                'supplier_invoice_no' => trim($record['Supplier Invoice No'] ?? ''),
-            ];
-        }
-
-        return $products;
+public function loadProductsFromCsv()
+{
+    if (!file_exists($this->csvPath)) {
+        throw new \Exception('CSV file not found');
     }
+
+    $csv = \League\Csv\Reader::createFromPath($this->csvPath, 'r');
+    $csv->setHeaderOffset(null); // don't set yet
+
+    // Get all rows
+    $records = iterator_to_array($csv->getRecords());
+
+    // Remove leading empty rows
+    while (!empty($records) && empty(array_filter(reset($records), fn($v) => trim($v) !== ''))) {
+        array_shift($records); // drop the first row if it's empty
+    }
+
+    if (empty($records)) {
+        throw new \Exception("CSV file has no valid header/data");
+    }
+
+    // First row is now header
+    $header = array_map('trim', array_shift($records));
+
+    $products = [];
+    foreach ($records as $row) {
+        // Skip completely empty rows
+        if (empty(array_filter($row, fn($v) => trim($v) !== ''))) {
+            continue;
+        }
+
+        $record = array_combine($header, $row);
+
+        $products[] = [
+            'name' => trim($record['Name'] ?? ''),
+            'model' => trim($record['Model'] ?? ''),
+            'specifications' => trim($record['Specifications'] ?? ''),
+            'purchase_price' => floatval($record['Purchase Price'] ?? 0),
+            'selling_price' => floatval($record['Selling Price'] ?? 0),
+            'warranty_period' => intval($record['Warranty Period'] ?? 0),
+            'warranty_type' => trim($record['Warranty Type'] ?? 'none'),
+            'quantity' => intval($record['quantity'] ?? 0),
+            'categories' => trim($record['Categories'] ?? ''),
+            'brands' => trim($record['Brands'] ?? ''),
+            'description' => trim(strip_tags($record['Description'] ?? '')),
+            'weight' => floatval($record['Weight'] ?? 0),
+            'supplier_invoice_no' => trim($record['Supplier Invoice No'] ?? ''),
+        ];
+    }
+
+    return $products;
+}
 
     public function searchProducts($query)
     {

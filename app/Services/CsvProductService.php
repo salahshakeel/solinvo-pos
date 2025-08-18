@@ -106,7 +106,8 @@ public function loadProductsFromCsv()
                 'payment_method',
                 'sale_date',
                 'sale_time',
-                'created_at'
+                'created_at',
+                'note'
             ]);
         }
 
@@ -133,6 +134,7 @@ public function loadProductsFromCsv()
             $saleDate = date('Y-m-d', strtotime($saleData['created_at']));
             $saleTime = date('H:i:s', strtotime($saleData['created_at']));
             
+            
             $writer->insertOne([
                 $saleData['invoice_number'],
                 $saleData['customer_name'] ?? '',
@@ -144,7 +146,8 @@ public function loadProductsFromCsv()
                 $saleData['payment_method'],
                 $saleDate,
                 $saleTime,
-                $saleData['created_at']
+                $saleData['created_at'],
+                $saleData['note'] ?? ''
             ]);
 
             // Save sale items
@@ -189,7 +192,8 @@ public function loadProductsFromCsv()
                 'payment_method' => $record['payment_method'],
                 'sale_date' => $record['sale_date'],
                 'sale_time' => $record['sale_time'],
-                'created_at' => $record['created_at']
+                'created_at' => $record['created_at'],
+                'note' => $record['note'] ?? '',
             ];
             
             // Load items for this sale

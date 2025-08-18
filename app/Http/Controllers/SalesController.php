@@ -52,6 +52,7 @@ class SalesController extends Controller
             'customer_phone' => 'nullable|string',
             'payment_method' => 'required|string',
             'discount_amount' => 'nullable|numeric|min:0',
+            'note' => 'nullable|string',
         ]);
 
         $items = $request->items;
@@ -78,7 +79,8 @@ class SalesController extends Controller
             'payment_method' => $request->payment_method,
             'items' => $items,
             'created_at' => now()->toDateTimeString(),
-            'subtotal' => $subtotal
+            'subtotal' => $subtotal,
+            'note' => $request->note
         ];
         
 

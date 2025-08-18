@@ -44,6 +44,9 @@ class ReceiptService
         if (!empty($sale['customer_phone'])) {
             $receipt .= "Phone: " . $sale['customer_phone'] . "\n";
         }
+        if (!empty($sale['note'])) {
+            $receipt .= "Note: " . $sale['note'] . "\n";
+        }
         $receipt .= str_repeat("-", $width) . "\n";
         
         // Items

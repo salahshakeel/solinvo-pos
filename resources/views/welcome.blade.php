@@ -202,6 +202,12 @@
                         </select>
                     </div>
 
+                    <!-- Note -->
+                    <div class="mt-4">
+                        <label for="note" class="block text-sm font-medium mb-2">Note (Optional)</label>
+                        <textarea id="note" rows="1" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-gray-900"></textarea>
+                    </div>
+
                     <!-- Action Buttons -->
                     <div class="mt-6 space-y-2">
                         <button onclick="processPayment()" 
@@ -607,7 +613,9 @@
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('discountAmount').value = '';
-            
+                document.getElementById('taxRate').value = 0;
+                document.getElementById('note').value = '';
+
         }
 
       function updateTotals() {
@@ -634,6 +642,7 @@
             const customerName = document.getElementById('customerName').value;
             const customerPhone = document.getElementById('customerPhone').value;
             const paymentMethod = document.getElementById('paymentMethod').value;
+            const note = document.getElementById('note').value;
             const discountAmount = parseFloat(document.getElementById('discountAmount').value) || 0;
 
             const saleData = {
@@ -646,6 +655,7 @@
                 customer_name: customerName,
                 customer_phone: customerPhone,
                 payment_method: paymentMethod,
+                note: note,
                 discount_amount: discountAmount
             };
 
@@ -690,6 +700,9 @@
             }
             if (sale.customer_phone) {
                 receipt += `Phone: ${sale.customer_phone}\n`;
+            }
+            if (sale.note) {
+                receipt += `Note: ${sale.note}\n`;
             }
             receipt += "-".repeat(width) + "\n";
             
@@ -806,6 +819,7 @@
                             <tr>
                                 <th class="px-4 py-2 text-left">Invoice</th>
                                 <th class="px-4 py-2 text-left">Customer</th>
+                                <th class="px-4 py-2 text-left">Note</th>
                                 <th class="px-4 py-2 text-left">Date</th>
                                 <th class="px-4 py-2 text-left">Amount</th>
                                 <th class="px-4 py-2 text-left">Payment</th>
@@ -819,6 +833,7 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="px-4 py-2 font-mono text-sm">${sale.invoice_number}</td>
                         <td class="px-4 py-2">${sale.customer_name || 'Walk-in'}</td>
+                        <td class="px-4 py-2">${sale.note || 'N/A'}</td>
                         <td class="px-4 py-2 text-sm">${new Date(sale.created_at).toLocaleDateString()}</td>
                         <td class="px-4 py-2 font-semibold">Rs. ${Math.round(sale.total_amount).toLocaleString()}</td>
                         <td class="px-4 py-2 capitalize">${sale.payment_method}</td>

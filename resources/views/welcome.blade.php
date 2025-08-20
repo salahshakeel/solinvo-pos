@@ -265,7 +265,7 @@
 
                         <div>
                                 <label for="productModel" class="block text-sm font-medium text-gray-700">Model</label>
-                                <input type="text" id="productModel" name="productModel" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product model">
+                                <input type="text" id="productModel" name="productModel"  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product model">
                             </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -920,7 +920,7 @@
             const formData = new FormData(form);
             const productData = {
                 name: formData.get('productName'),
-                model: formData.get('productModel'),
+                model: formData.get('productModel') || '',
                 purchase_price: parseFloat(formData.get('productPurchasePrice')),
                 selling_price: parseFloat(formData.get('productSellingPrice')),
                 categories: formData.get('productCategory') || '',
@@ -956,6 +956,7 @@
                 if (result.success) {
                     alert('Product added successfully');
                     closeAddProductModal();
+                    form.reset();
                     loadProducts(); 
                 } else {
                     alert('Failed to add product');

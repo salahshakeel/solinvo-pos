@@ -132,7 +132,7 @@ public function loadProductsFromCsv()
             $writer = Writer::createFromPath($this->csvPath, 'a+');
            $writer->insertOne([
             $productData['name'],              // Name
-            $productData['model'],                             // Model
+            $productData['model'] ?? 'N/A',                             // Model
             'N/A',                             // Specifications
             $productData['purchase_price'],    // Purchase Price
             $productData['selling_price'],     // Selling Price

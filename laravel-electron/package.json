@@ -1,12 +1,17 @@
 {
   "name": "laravel-electron",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "pack": "electron-packager . solinvo-pos --platform=win32 --arch=x64 --overwrite"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "electron": "^37.3.1",
+    "electron-packager": "^17.1.2"
+  }
 }

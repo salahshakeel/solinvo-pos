@@ -83,6 +83,12 @@
                 </label>
             </form>
 
+            <!-- Add Product -->
+            <button onclick="showAddProductModal()" 
+                class="bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
+                <i class="fas fa-plus mr-2"></i> Add Product (Ctrl + N)
+            </button>
+
             <!-- Sales History -->
             <button onclick="showSalesHistory()" 
                 class="bg-gray-900 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center shadow text-sm">
@@ -148,7 +154,7 @@
 
 
         <!-- Cart Sidebar (fixed width on right) -->
-      <div class="w-96 sticky top-20 self-start">
+      <div class="w-96  top-20 self-start">
             <div class="bg-white rounded-lg shadow-md p-4 ">
                 <h2 class="text-xl font-semibold mb-4">Shopping Cart</h2>
                 
@@ -161,7 +167,7 @@
                 </div>
 
                 <!-- Cart Items -->
-                <div class="max-h-64 overflow-y-auto mb-4" id="cartItems">
+                <div class=" mb-4" id="cartItems">
                     <div class="text-center text-gray-500 py-8">
                         <i class="fas fa-shopping-cart text-4xl mb-2"></i>
                         <p>Cart is empty</p>
@@ -235,6 +241,75 @@
 </div>
 
 
+<!-- Add New Product Modal -->
+<div id="addProductModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl animate-fade-in">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-plus mr-3 text-gray-900"></i>Add New Product
+                    </h3>
+                    <button onclick="closeAddProductModal()" class="text-gray-500 hover:text-gray-700 hover:bg-gray-100 p-2 rounded-lg transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <form id="addProductForm" onsubmit="addNewProduct(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+                            <input type="text" id="productName" name="productName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product name" required>
+                        </div>
+
+                        <div>
+                                <label for="productModel" class="block text-sm font-medium text-gray-700">Model</label>
+                                <input type="text" id="productModel" name="productModel" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product model">
+                            </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="productPurchasePrice" class="block text-sm font-medium text-gray-700">Purchase Price</label>
+                                <input type="number" id="productPurchasePrice" name="productPurchasePrice" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product price" required>
+                            </div>
+                            <div>
+                                <label for="productSellingPrice" class="block text-sm font-medium text-gray-700">Selling Price</label>
+                                <input type="number" id="productSellingPrice" name="productSellingPrice" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product price" required>
+                            </div>
+                        </div>
+                     
+                      <div>
+                        <label for="productCategory" class="block text-sm font-medium text-gray-700">Category</label>
+                        <select id="productCategory" name="productCategory" 
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                            <option value="">-- Select Category --</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="productBrand" class="block text-sm font-medium text-gray-700">Brand</label>
+                        <select id="productBrand" name="productBrand" 
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                            <option value="">-- Select Brand --</option>
+                        </select>
+                    </div>
+                      
+                    </div>
+                    <div class="mt-6 flex space-x-3">
+                        <button type="submit" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-medium hover:scale-105 transition-transform">
+                            <i class="fas fa-plus mr-2"></i>Add Product
+                        </button>
+                        <button type="button" onclick="closeAddProductModal()" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-medium transition-colors">
+                            Close (ESC)
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
     <!-- Receipt Modal -->
@@ -257,10 +332,10 @@
                     </div>
                     <div class="mt-6 flex space-x-3">
                         <button onclick="printReceipt()" class="flex-1 bg-gray-900 text-white py-3 rounded-xl font-medium hover:scale-105 transition-transform">
-                            <i class="fas fa-print mr-2"></i>Print
+                            <i class="fas fa-print mr-2"></i>Print (Ctrl + P)
                         </button>
                         <button onclick="closeReceiptModal()" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-medium transition-colors">
-                            Close
+                            Close (ESC)
                         </button>
                     </div>
                 </div>
@@ -304,6 +379,7 @@
         let products = [];
         let cart = [];
         let categories = new Set(['all']);
+        let brands = new Set(['all']);
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -339,7 +415,7 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    products = result.data.filter(p => p.quantity > 0);
+                    products = result.data;
                     extractCategories();
                     extractBrands();
                     displayProducts(products);
@@ -354,6 +430,29 @@
             }
         }
 
+        function populateSelectOptions() {
+            const brandSelect = document.getElementById("productBrand");
+            const categorySelect = document.getElementById("productCategory");
+
+            // clear old options except first
+            brandSelect.length = 1;  
+            categorySelect.length = 1;
+
+            brands.forEach(brand => {
+                const option = document.createElement("option");
+                option.value = brand;
+                option.textContent = brand;
+                brandSelect.appendChild(option);
+            });
+
+            categories.forEach(cat => {
+                const option = document.createElement("option");
+                option.value = cat;
+                option.textContent = cat;
+                categorySelect.appendChild(option);
+            });
+        }
+
         function extractCategories() {
             categories = new Set(['all']);
             products.forEach(product => {
@@ -364,7 +463,7 @@
         }
 
         function extractBrands() {
-            brands = new Set(['all']);
+           
             products.forEach(product => {
                 if (product.brands && product.brands.trim()) {
                     brands.add(product.brands.toUpperCase());
@@ -471,10 +570,11 @@
                 productCard.innerHTML = `
                     <div class="text-sm font-semibold text-gray-800 truncate">${product.name}</div>
                     <div class="text-xs text-gray-600 truncate">${product.model || ''}</div>
+                      <div class="text-xs text-gray-900 truncate">${product.categories || ''}</div>
                     <div class="text-xs text-gray-900 truncate">${product.brands || ''}</div>
                     <div class="mt-2 flex justify-between items-center">
                         <span class="text-gray-900 font-bold">Rs. ${Number(product.selling_price).toLocaleString()}</span>
-                        <span class="text-xs text-gray-500">Qty: ${product.quantity}</span>
+
                     </div>
                 `;
                 productCard.addEventListener('click', () => addToCart(product));
@@ -515,21 +615,7 @@
         }
 
         function addToCart(product) {
-            if (product.quantity <= 0) {
-                alert('Product is out of stock!');
-                return;
-            }
-
-            const existingItem = cart.find(item => item.name === product.name && item.model === product.model);
-            
-            if (existingItem) {
-                if (existingItem.quantity < product.quantity) {
-                    existingItem.quantity += 1;
-                } else {
-                    alert('Not enough stock available!');
-                    return;
-                }
-            } else {
+           
                 cart.push({
                     name: product.name,
                     model: product.model,
@@ -537,7 +623,7 @@
                     quantity: 1,
                     maxQuantity: product.quantity
                 });
-            }
+            
 
             updateCartDisplay();
         }
@@ -598,16 +684,15 @@
         function updateQuantity(index, change) {
             const item = cart[index];
             const newQuantity = item.quantity + change;
-            
+
             if (newQuantity <= 0) {
                 removeFromCart(index);
-            } else if (newQuantity <= item.maxQuantity) {
+            } else {
                 item.quantity = newQuantity;
                 updateCartDisplay();
-            } else {
-                alert('Not enough stock available!');
             }
         }
+
 
         function removeFromCart(index) {
             cart.splice(index, 1);
@@ -782,6 +867,15 @@
             document.getElementById('receiptModal').classList.add('hidden');
         }
 
+        function showAddProductModal() {
+             populateSelectOptions();
+            document.getElementById('addProductModal').classList.remove('hidden');
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').classList.add('hidden');
+        }
+
         function printReceipt() {
             const receiptContent = document.getElementById('receiptContent').textContent;
             const printWindow = window.open('', '_blank');
@@ -818,6 +912,59 @@
                 console.error('Error loading sales history:', error);
                 alert('Error loading sales history');
             }
+        }
+
+        function addNewProduct(e) {
+            e.preventDefault();
+            const form = document.getElementById('addProductForm');
+            const formData = new FormData(form);
+            const productData = {
+                name: formData.get('productName'),
+                model: formData.get('productModel'),
+                purchase_price: parseFloat(formData.get('productPurchasePrice')),
+                selling_price: parseFloat(formData.get('productSellingPrice')),
+                categories: formData.get('productCategory') || '',
+                brands: formData.get('productBrand') || ''
+            };
+
+            if (!productData.name || !productData.purchase_price || !productData.selling_price) {
+                alert('Please fill all required fields');
+                return;
+            }
+            if (productData.purchase_price >= productData.selling_price) {
+                alert('Selling price must be greater than purchase price');
+                return;
+            }
+            if (productData.categories === '') {
+                alert('Please select at least one category');
+                return;
+            }
+            if (productData.brands === '') {
+                alert('Please select at least one brand');
+                return;
+            }
+
+            fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Product added successfully');
+                    closeAddProductModal();
+                    loadProducts(); 
+                } else {
+                    alert('Failed to add product');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding product:', error);
+                alert('Error adding product');
+            });
         }
 
         function renderSalesHistory(sales) {
@@ -892,11 +1039,24 @@
                 e.preventDefault();
                 closeReceiptModal();
                 closeSalesModal();
+                closeAddProductModal();
             }
-            // else if (e.key === 'p') {
-            //     e.preventDefault();
-            //     printReceipt();
-            // }
+            else if (e.key === 'Home') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            else if ( e.ctrlKey && (e.key === 'p' || e.key === 'P')) { 
+                e.preventDefault();
+                printReceipt();
+            }
+            else if (e.key === 'F5') {
+                e.preventDefault();
+                loadProducts();
+            }
+             else if ( e.ctrlKey && (e.key === 'n' || e.key === 'N')) {
+                e.preventDefault();
+                showAddProductModal();
+            }
         });
 
         // Auto-refresh products every 5 minutes

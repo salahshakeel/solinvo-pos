@@ -83,7 +83,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
+        $this->csvService->addNewProduct($request->all());
+        return response()->json([
+            'success' => true,
+            'message' => 'Product added successfully'
+        ]);
     }
 
     /**

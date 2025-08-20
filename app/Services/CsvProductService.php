@@ -71,7 +71,7 @@ public function loadProductsFromCsv()
         ];
     }
 
-    return $products;
+    return  array_reverse($products); 
 }
 
     public function searchProducts($query)
@@ -123,6 +123,47 @@ public function loadProductsFromCsv()
                 'total_price',
                 'created_at'
             ]);
+        }
+    }
+
+    public function addNewProduct($productData)
+    {
+        try {
+            $writer = Writer::createFromPath($this->csvPath, 'a+');
+           $writer->insertOne([
+            $productData['name'],              // Name
+            $productData['model'],                             // Model
+            'N/A',                             // Specifications
+            $productData['purchase_price'],    // Purchase Price
+            $productData['selling_price'],     // Selling Price
+            'N/A',                             // Warranty Period
+            '0',                               // Is Borrow
+            'N/A',                             // Shop Name
+            'N/A',                             // Shop Address
+            'N/A',                             // Shop Phone
+            'N/A',                             // Shop Email
+            'N/A',                             // Identity Type
+            'N/A',                             // Identity Value
+            'N/A',                             // Warranty Type
+            '0',                               // Is Warranty
+            'N/A',                             // Supplier Invoice No
+            'N/A',                             // Description
+            '0',                               // Weight
+            '0',                               // Is Supplier
+            'N/A',                             // Customfield
+            '0',                               // Is Exchange
+            'N/A',                             // Exchange Remarks
+            '0',                               // Is Return
+            'N/A',                             // Return Remarks
+            'N/A',                             // Exchange Order Id
+            1,                               // quantity
+            $productData['categories'],        // Categories
+            $productData['brands'],            // Brands
+        ]);
+
+            return true;
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to add product to CSV: ' . $e->getMessage());
         }
     }
 

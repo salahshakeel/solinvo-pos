@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/laravel-electron/node_modules
+/laravel-electron/package-lock.json
+/laravel-electron/solinvo-pos-win32-x64

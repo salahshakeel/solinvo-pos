@@ -935,14 +935,7 @@
                 alert('Selling price must be greater than purchase price');
                 return;
             }
-            if (productData.categories === '') {
-                alert('Please select at least one category');
-                return;
-            }
-            if (productData.brands === '') {
-                alert('Please select at least one brand');
-                return;
-            }
+         
 
             fetch('/api/products', {
                 method: 'POST',
@@ -986,6 +979,7 @@
                                 <th class="px-4 py-2 text-left">Customer</th>
                                 <th class="px-4 py-2 text-left">Note</th>
                                 <th class="px-4 py-2 text-left">Date</th>
+                                <th class="px-4 py-2 text-left">Items</th>
                                 <th class="px-4 py-2 text-left">Amount</th>
                                 <th class="px-4 py-2 text-left">Payment</th>
                             </tr>
@@ -1000,8 +994,19 @@
                         <td class="px-4 py-2">${sale.customer_name || 'Walk-in'}</td>
                         <td class="px-4 py-2">${sale.note || 'N/A'}</td>
                         <td class="px-4 py-2 text-sm">${new Date(sale.created_at).toLocaleDateString()}</td>
+                      <td class="px-4 py-2">
+                        <ul class="list-disc list-inside">
+                            ${sale.items.length > 0 
+                            ? sale.items.map(item => `<li>${item.name} - Qty: ${item.quantity} - Rs. ${item.price}</li>`).join('') 
+                            : '<li>N/A</li>'}
+                        </ul>
+                        </td>
+
                         <td class="px-4 py-2 font-semibold">Rs. ${Math.round(sale.total_amount).toLocaleString()}</td>
                         <td class="px-4 py-2 capitalize">${sale.payment_method}</td>
+
+                        
+
                     </tr>
                 `;
             });

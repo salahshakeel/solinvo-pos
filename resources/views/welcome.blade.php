@@ -264,23 +264,23 @@
                         </div>
 
                         <div>
-                                <label for="productModel" class="block text-sm font-medium text-gray-700">Model</label>
+                                <label for="productModel" class="block text-sm font-medium text-gray-700">Model - (Optional)</label>
                                 <input type="text" id="productModel" name="productModel"  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product model">
                             </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="productPurchasePrice" class="block text-sm font-medium text-gray-700">Purchase Price</label>
-                                <input type="number" id="productPurchasePrice" name="productPurchasePrice" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product price" required>
+                                <input type="number" id="productPurchasePrice" name="productPurchasePrice" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter purchase price" required>
                             </div>
                             <div>
                                 <label for="productSellingPrice" class="block text-sm font-medium text-gray-700">Selling Price</label>
-                                <input type="number" id="productSellingPrice" name="productSellingPrice" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter product price" required>
+                                <input type="number" id="productSellingPrice" name="productSellingPrice" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent" placeholder="Enter selling price" required>
                             </div>
                         </div>
                      
                       <div>
-                        <label for="productCategory" class="block text-sm font-medium text-gray-700">Category</label>
+                        <label for="productCategory" class="block text-sm font-medium text-gray-700">Category - (Optional)</label>
                         <select id="productCategory" name="productCategory" 
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent">
                             <option value="">-- Select Category --</option>
@@ -288,7 +288,7 @@
                     </div>
 
                     <div>
-                        <label for="productBrand" class="block text-sm font-medium text-gray-700">Brand</label>
+                        <label for="productBrand" class="block text-sm font-medium text-gray-700">Brand - (Optional)</label>
                         <select id="productBrand" name="productBrand" 
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent">
                             <option value="">-- Select Brand --</option>
